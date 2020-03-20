@@ -68,13 +68,13 @@ void DrawCircle(HDC hdc, int xc, int yc, int R, COLORREF color) {
     int x = R;
     int y = 0;
     SetMultiPixel(hdc, xc, yc, color, x, y);
-    int d = 5 - 4 * R;
+    int d = 1- R;
     while (x > y) {
         if (d > 0) {
-            d += -8 * x + 8;
+            d += -2 * x + 2;
             x--;
         }
-        d += 8 * y + 12;
+        d += 2 * y + 3;
         y++;
 
         SetMultiPixel(hdc, xc, yc, color, x, y);
