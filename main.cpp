@@ -85,7 +85,9 @@ void task(HDC hdc) {
     int r1 = distance(x[0], y[0], x[1], y[1]);
     int r2 = distance(x[0], y[0], x[2], y[2]);
     if (r2 < r1) swap(&r2,&r1);
-    for (int i = r1; i < r2; ++i) DrawCircle(hdc, x[0], y[0], i, color);
+    DrawCircle(hdc, x[0], y[0], r1, color);
+    DrawCircle(hdc, x[0], y[0], r2, color);
+    for (int i = r1+1; i < r2; ++i) DrawCircle(hdc, x[0], y[0], i, color);
     DrawLine(hdc, x[0], y[0], x[1], y[1], color);
     DrawLine(hdc, x[0], y[0], x[2], y[2], color);
 }
