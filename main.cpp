@@ -49,7 +49,7 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
     hwnd = CreateWindowEx(
             0,                   /* Extended possibilites for variation */
             szClassName,         /* Classname */
-            _T("Code::Blocks Template Windows App"),       /* Title Text */
+            _T("Task3: CS_1 20170077"),       /* Title Text */
             WS_OVERLAPPEDWINDOW, /* default window */
             CW_USEDEFAULT,       /* Windows decides the position */
             CW_USEDEFAULT,       /* where the window ends up on the screen */
@@ -78,33 +78,40 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
 
 
 /*  This function is called by the Windows function DispatchMessage()  */
-int x[3],y[3],c;
-void task(HDC hdc){
+int x[3], y[3], c;
+
+void task(HDC hdc) {
     COLORREF color = RGB(0, 0, 0);
-    int r1 = distance(x[0],y[0],x[1],y[1]);
-    int r2 = distance(x[0],y[0],x[2],y[2]);
-    for(int i = r1 ; i<r2 ; ++i) DrawCircle(hdc,x[0],y[0],i,color);
-    DrawLine(hdc,x[0],y[0],x[1],y[1],color);
-    DrawLine(hdc,x[0],y[0],x[2],y[2],color);
+    int r1 = distance(x[0], y[0], x[1], y[1]);
+    int r2 = distance(x[0], y[0], x[2], y[2]);
+    if (r2 < r1) swap(&r2,&r1);
+    for (int i = r1; i < r2; ++i) DrawCircle(hdc, x[0], y[0], i, color);
+    DrawLine(hdc, x[0], y[0], x[1], y[1], color);
+    DrawLine(hdc, x[0], y[0], x[2], y[2], color);
 }
+
 LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
+    PAINTSTRUCT ps;
+    HDC hdc;
     switch (message)                  /* handle the messages */
     {
         case WM_DESTROY:
             PostQuitMessage(0);       /* send a WM_QUIT to the message queue */
             break;
         case WM_LBUTTONDOWN:
+            if (c == 3) c = 0;
             x[c] = LOWORD(lParam);
             y[c] = HIWORD(lParam);
             ++c;
-            if (c == 3){
-                c = 0;
-                HDC hdc = GetDC(hwnd);
-                task(hdc);
-                ReleaseDC(hwnd, hdc);
-            }
+            InvalidateRect(hwnd, 0, TRUE);
             break;
-
+        case WM_PAINT:
+            hdc = BeginPaint(hwnd, &ps);
+            if (c == 3) {
+                task(hdc);
+            }
+            EndPaint(hwnd, &ps);
+            break;
         default:                      /* for messages that we don't deal with */
             return DefWindowProc(hwnd, message, wParam, lParam);
     }
