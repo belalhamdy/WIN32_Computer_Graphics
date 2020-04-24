@@ -1,6 +1,8 @@
 #include <tchar.h>
 #include <windows.h>
-#include "DrawingAlgorithms.h"
+#include <iostream>
+#include "task2.h"
+
 
 #if defined(UNICODE) && !defined(_UNICODE)
 #define _UNICODE
@@ -13,7 +15,7 @@
 LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
 
 /*  Make the class name into a global variable  */
-TCHAR szClassName[] = _T("CodeBlocksWindowsApp");
+TCHAR szClassName[] = _T("Ass-2_Task3: CS_1 20170077");
 
 
 int WINAPI WinMain(HINSTANCE hThisInstance,
@@ -49,7 +51,7 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
     hwnd = CreateWindowEx(
             0,                   /* Extended possibilites for variation */
             szClassName,         /* Classname */
-            _T("Task3: CS_1 20170077"),       /* Title Text */
+            _T("Ass-2_Task3: CS_1 20170077"),       /* Title Text */
             WS_OVERLAPPEDWINDOW, /* default window */
             CW_USEDEFAULT,       /* Windows decides the position */
             CW_USEDEFAULT,       /* where the window ends up on the screen */
@@ -78,18 +80,42 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
 
 
 /*  This function is called by the Windows function DispatchMessage()  */
-int x[3], y[3], c;
+const int MAX_INPUT = 10;
+int click, clickCPY, clear, c = 4; // set clear = 1 if you want to clear the screen every mouse click
+bool takeInput = false;
+Vector2 input[MAX_INPUT];
+task2 t;
 
 void task(HDC hdc) {
-    COLORREF color = RGB(0, 0, 0);
-    int r1 = distance(x[0], y[0], x[1], y[1]);
-    int r2 = distance(x[0], y[0], x[2], y[2]);
-    if (r2 < r1) swap(&r2,&r1);
-    DrawCircle(hdc, x[0], y[0], r1, color);
-    DrawCircle(hdc, x[0], y[0], r2, color);
-    for (int i = r1+1; i < r2; ++i) DrawCircle(hdc, x[0], y[0], i, color);
-    DrawLine(hdc, x[0], y[0], x[1], y[1], color);
-    DrawLine(hdc, x[0], y[0], x[2], y[2], color);
+    switch (c) {
+        case 1:
+            t.DrawLine(hdc, input[0], input[1]);
+            break;
+        case 2:
+            t.DrawCircle(hdc, input[0], input[1],false);
+            break;
+        case 3:
+            t.DrawBezierCurve(hdc, input[0], input[1], input[2], input[3]);
+            break;
+        case 4:
+            t.DrawCircle(hdc, input[0], input[1],true);
+            break;
+    }
+}
+
+int main() {
+    click = 2;
+    if (takeInput) {
+        printf("1- Line (2 Clicks)\n2- Circle (2 Clicks)\n3- Cubic Curve (4 Clicks)\n4- New Clipping Circle (2 Clicks)\n5- Exit\n\n");
+        scanf("%d", &c);
+    }
+    if (c > 4 || c < 1) ExitProcess(0);
+    takeInput = true;
+    if (c == 3) click = 4;
+    clickCPY = click;
+
+
+    return WinMain(GetModuleHandle(NULL), NULL, GetCommandLineA(), SW_SHOWNORMAL);
 }
 
 LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
@@ -101,18 +127,19 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
             PostQuitMessage(0);       /* send a WM_QUIT to the message queue */
             break;
         case WM_LBUTTONDOWN:
-            if (c == 3) c = 0;
-            x[c] = LOWORD(lParam);
-            y[c] = HIWORD(lParam);
-            ++c;
-            InvalidateRect(hwnd, 0, TRUE);
+            if (!click) click = clickCPY;
+            input[clickCPY - click].x = LOWORD(lParam);
+            input[clickCPY - click].y = HIWORD(lParam);
+            --click;
+            InvalidateRect(hwnd, nullptr, clear);
             break;
         case WM_PAINT:
             hdc = BeginPaint(hwnd, &ps);
-            if (c == 3) {
+            if (!click) {
                 task(hdc);
             }
             EndPaint(hwnd, &ps);
+            if (!click) return main();
             break;
         default:                      /* for messages that we don't deal with */
             return DefWindowProc(hwnd, message, wParam, lParam);

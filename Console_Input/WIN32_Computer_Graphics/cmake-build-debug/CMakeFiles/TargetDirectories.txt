@@ -1,0 +1,3 @@
+S:/faculty/github/WIN32_Computer_Graphics/cmake-build-debug/CMakeFiles/WIN32_Computer_Graphics.dir
+S:/faculty/github/WIN32_Computer_Graphics/cmake-build-debug/CMakeFiles/edit_cache.dir
+S:/faculty/github/WIN32_Computer_Graphics/cmake-build-debug/CMakeFiles/rebuild_cache.dir
