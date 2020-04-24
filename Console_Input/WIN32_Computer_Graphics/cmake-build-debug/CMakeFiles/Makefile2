@@ -43,10 +43,10 @@ RM = "C:\Program Files\JetBrains\CLion 2019.3.2\bin\cmake\win\bin\cmake.exe" -E 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = S:\faculty\github\WIN32_Computer_Graphics
+CMAKE_SOURCE_DIR = S:\faculty\github\WIN32_Computer_Graphics\Console_Input\WIN32_Computer_Graphics
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = S:\faculty\github\WIN32_Computer_Graphics\cmake-build-debug
+CMAKE_BINARY_DIR = S:\faculty\github\WIN32_Computer_Graphics\Console_Input\WIN32_Computer_Graphics\cmake-build-debug
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -73,14 +73,14 @@ preinstall:
 CMakeFiles/WIN32_Computer_Graphics.dir/all:
 	$(MAKE) -f CMakeFiles\WIN32_Computer_Graphics.dir\build.make CMakeFiles/WIN32_Computer_Graphics.dir/depend
 	$(MAKE) -f CMakeFiles\WIN32_Computer_Graphics.dir\build.make CMakeFiles/WIN32_Computer_Graphics.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=S:\faculty\github\WIN32_Computer_Graphics\cmake-build-debug\CMakeFiles --progress-num=1,2 "Built target WIN32_Computer_Graphics"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=S:\faculty\github\WIN32_Computer_Graphics\Console_Input\WIN32_Computer_Graphics\cmake-build-debug\CMakeFiles --progress-num=1,2 "Built target WIN32_Computer_Graphics"
 .PHONY : CMakeFiles/WIN32_Computer_Graphics.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/WIN32_Computer_Graphics.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start S:\faculty\github\WIN32_Computer_Graphics\cmake-build-debug\CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start S:\faculty\github\WIN32_Computer_Graphics\Console_Input\WIN32_Computer_Graphics\cmake-build-debug\CMakeFiles 2
 	$(MAKE) -f CMakeFiles\Makefile2 CMakeFiles/WIN32_Computer_Graphics.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start S:\faculty\github\WIN32_Computer_Graphics\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start S:\faculty\github\WIN32_Computer_Graphics\Console_Input\WIN32_Computer_Graphics\cmake-build-debug\CMakeFiles 0
 .PHONY : CMakeFiles/WIN32_Computer_Graphics.dir/rule
 
 # Convenience name for target.
