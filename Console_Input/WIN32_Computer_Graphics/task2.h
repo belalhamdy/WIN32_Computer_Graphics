@@ -13,7 +13,7 @@ class task2 {
 
     void MySetPixel(HDC hdc, int x, int y) {
 
-        if (clipping && distance(x, y, centerX, centerY) > r)
+        if (clipping && distance(x, y, centerX, centerY) < r)
             SetPixel(hdc, x, y, insideColor);
 
         else SetPixel(hdc, x, y, outsideColor);
