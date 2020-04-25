@@ -92,30 +92,37 @@ void task(HDC hdc) {
             t.DrawLine(hdc, input[0], input[1]);
             break;
         case 2:
-            t.DrawCircle(hdc, input[0], input[1],false);
+            t.DrawCircle(hdc, input[0], input[1], false);
             break;
         case 3:
             t.DrawBezierCurve(hdc, input[0], input[1], input[2], input[3]);
             break;
         case 4:
-            t.DrawCircle(hdc, input[0], input[1],true);
+            t.DrawCircle(hdc, input[0], input[1], true);
             break;
     }
 }
 
-int main() {
-    click = 2;
-    if (takeInput) {
-        printf("1- Line (2 Clicks)\n2- Circle (2 Clicks)\n3- Cubic Curve (4 Clicks)\n4- New Clipping Circle (2 Clicks)\n5- Exit\n\n");
-        scanf("%d", &c);
+DWORD WINAPI consoleThread(LPVOID lpParameter) {
+    click = clickCPY = 2;
+    if (!takeInput) {
+        printf("Enter Clipping Circle\n");
+        takeInput = true;
+        return 0;
     }
-    if (c > 4 || c < 1) ExitProcess(0);
-    takeInput = true;
-    if (c == 3) click = 4;
-    clickCPY = click;
+    printf("1- Line (2 Clicks)\n2- Circle (2 Clicks)\n3- Cubic Curve (4 Clicks)\n4- New Clipping Circle (2 Clicks)\n5- Exit\n\n");
+    scanf("%d", &c);
+    if (c > 4 || c < 1) return 0;
+    if (c == 3) click = clickCPY = 4;
 
+    return 0;
+}
 
-    return WinMain(GetModuleHandle(NULL), NULL, GetCommandLineA(), SW_SHOWNORMAL);
+int main() {
+    DWORD myThreadID;
+    HANDLE myHandle = CreateThread(0, 0, consoleThread, 0, 0, &myThreadID);
+    CloseHandle(myHandle);
+    return WinMain(GetModuleHandle(NULL), NULL, NULL, SW_SHOWNORMAL);
 }
 
 LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
