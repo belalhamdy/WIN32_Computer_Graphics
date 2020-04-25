@@ -81,8 +81,9 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
 
 /*  This function is called by the Windows function DispatchMessage()  */
 const int MAX_INPUT = 10;
+
 int click, clickCPY, clear, c = 4; // set clear = 1 if you want to clear the screen every mouse click
-bool takeInput = false;
+bool takeInput = false,draw = true;
 Vector2 input[MAX_INPUT];
 task2 t;
 
@@ -114,7 +115,7 @@ DWORD WINAPI consoleThread(LPVOID lpParameter) {
     scanf("%d", &c);
     if (c > 4 || c < 1) exit(0);
     if (c == 3) click = clickCPY = 4;
-
+    draw = true;
     return 0;
 }
 
@@ -146,7 +147,10 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                 task(hdc);
             }
             EndPaint(hwnd, &ps);
-            if (!click) return main();
+            if (!click && draw){
+                draw = false;
+                return main();
+            }
             break;
         default:                      /* for messages that we don't deal with */
             return DefWindowProc(hwnd, message, wParam, lParam);
