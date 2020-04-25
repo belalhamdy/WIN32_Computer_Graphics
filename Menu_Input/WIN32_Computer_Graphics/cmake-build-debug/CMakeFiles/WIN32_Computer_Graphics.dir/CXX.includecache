@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+S:/faculty/github/WIN32_Computer_Graphics/Menu_Input/WIN32_Computer_Graphics/Matrix.h
+cstring
+-
+
+S:/faculty/github/WIN32_Computer_Graphics/Menu_Input/WIN32_Computer_Graphics/main.cpp
+windows.h
+-
+task2.h
+S:/faculty/github/WIN32_Computer_Graphics/Menu_Input/WIN32_Computer_Graphics/task2.h
+
+S:/faculty/github/WIN32_Computer_Graphics/Menu_Input/WIN32_Computer_Graphics/task2.h
+windef.h
+-
+wingdi.h
+-
+cmath
+-
+Matrix.h
+S:/faculty/github/WIN32_Computer_Graphics/Menu_Input/WIN32_Computer_Graphics/Matrix.h
+

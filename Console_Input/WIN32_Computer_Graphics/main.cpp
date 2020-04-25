@@ -112,7 +112,7 @@ DWORD WINAPI consoleThread(LPVOID lpParameter) {
     }
     printf("1- Line (2 Clicks)\n2- Circle (2 Clicks)\n3- Cubic Curve (4 Clicks)\n4- New Clipping Circle (2 Clicks)\n5- Exit\n\n");
     scanf("%d", &c);
-    if (c > 4 || c < 1) return 0;
+    if (c > 4 || c < 1) exit(0);
     if (c == 3) click = clickCPY = 4;
 
     return 0;
