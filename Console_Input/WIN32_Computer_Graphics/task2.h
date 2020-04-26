@@ -46,7 +46,7 @@ class task2 {
         Vector4 xcoeff = GetHermiteCoefficient(P0.x, T0.x, P1.x, T1.x);
         Vector4 ycoeff = GetHermiteCoefficient(P0.y, T0.y, P1.y, T1.y);
         if (numpoints < 2)return;
-        double dt = 1.0 / (numpoints - 1);
+        double dt = 1.0 / ((numpoints - 1)*100);
         for (double t = 0; t <= 1; t += dt) {
             Vector4 vt;
             vt[3] = 1;
