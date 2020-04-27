@@ -1,8 +1,15 @@
 #include <windef.h>
 #include <wingdi.h>
 #include <cmath>
-#include "Matrix.h"
 
+struct Vector2 {
+    double x, y;
+
+    Vector2(double a = 0, double b = 0) {
+        x = a;
+        y = b;
+    }
+};
 
 class task2 {
     COLORREF insideColor = RGB(0, 0, 255);
@@ -31,32 +38,7 @@ class task2 {
         MySetPixel(hdc, xc - y, yc - x);
     }
 
-    Vector4 GetHermiteCoefficient(double x0, double s0, double x1, double s1) {
-        static double H[16] = {2, 1, -2, 1,
-                               -3, -2, 3, -1,
-                               0, 1, 0, 0,
-                               1, 0, 0, 0};
 
-        static Matrix4 basis(H);
-        Vector4 v(x0, s0, x1, s1);
-        return basis * v;
-    }
-
-    void DrawHermiteCurve(HDC hdc, Vector2 &P0, Vector2 &T0, Vector2 &P1, Vector2 &T1, int numpoints) {
-        Vector4 xcoeff = GetHermiteCoefficient(P0.x, T0.x, P1.x, T1.x);
-        Vector4 ycoeff = GetHermiteCoefficient(P0.y, T0.y, P1.y, T1.y);
-        if (numpoints < 2)return;
-        double dt = 1.0 / ((numpoints - 1)*100);
-        for (double t = 0; t <= 1; t += dt) {
-            Vector4 vt;
-            vt[3] = 1;
-            for (int i = 2; i >= 0; i--)vt[i] = vt[i + 1] * t;
-            int x = round(DotProduct(xcoeff, vt));
-            int y = round(DotProduct(ycoeff, vt));
-            MySetPixel(hdc, x, y);
-        }
-
-    }
 
     void DrawCircle(HDC hdc, int xc, int yc, int R) {
         int x = R;
@@ -142,9 +124,17 @@ public:
 
 
     void DrawBezierCurve(HDC hdc, Vector2 &P0, Vector2 &P1, Vector2 &P2, Vector2 &P3) {
-        Vector2 T0(3 * (P1.x - P0.x), 3 * (P1.y - P0.y));
-        Vector2 T1(3 * (P3.x - P2.x), 3 * (P3.y - P2.y));
-        DrawHermiteCurve(hdc, P0, T0, P3, T1, 200);
+
+        int x1 = P0.x, y1 = P0.y, x2 = P1.x, y2 = P1.y, x3 = P2.x, y3 = P2.y, x4 = P3.x, y4 = P3.y;
+
+        x2 = 3 * (x2 - x1), y2 = 3 * (y2 - y1), x3 = 3 * (x4 - x3), y3 = 3 * (y4 - y3);
+
+        double dt = 0.0001;
+        for (double t = 0; t <= 1; t += dt) {
+            int x = x1 + x2 * t + (-3 * x1 - 2 * x2 + 3 * x4 - x3) * t * t + (2 * x1 + x2 - 2 * x4 + x3) * t * t * t;
+            int y = y1 + y2 * t + (-3 * y1 - 2 * y2 + 3 * y4 - y3) * t * t + (2 * y1 + y2 - 2 * y4 + y3) * t * t * t;
+            MySetPixel(hdc, round(x), round(y));
+        }
     }
 
 };

@@ -41,7 +41,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 const int MAX_INPUT = 10;
 int click, clickCPY, c = 4; // set clear = 1 if you want to clear the screen every mouse click
-bool takeInput = false;
 Vector2 input[MAX_INPUT];
 task2 t;
 

@@ -6,10 +6,6 @@
 
 #IncludeRegexTransform: 
 
-S:/faculty/github/WIN32_Computer_Graphics/Console_Input/WIN32_Computer_Graphics/Matrix.h
-cstring
--
-
 S:/faculty/github/WIN32_Computer_Graphics/Console_Input/WIN32_Computer_Graphics/main.cpp
 tchar.h
 -
@@ -27,6 +23,4 @@ wingdi.h
 -
 cmath
 -
-Matrix.h
-S:/faculty/github/WIN32_Computer_Graphics/Console_Input/WIN32_Computer_Graphics/Matrix.h
 

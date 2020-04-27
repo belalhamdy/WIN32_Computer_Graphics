@@ -104,7 +104,7 @@ void task(HDC hdc) {
     }
 }
 
-DWORD WINAPI consoleThread(LPVOID lpParameter) {
+DWORD WINAPI consoleThread(LPVOID ) {
     click = clickCPY = 2;
     if (!takeInput) {
         printf("Enter Clipping Circle\n");

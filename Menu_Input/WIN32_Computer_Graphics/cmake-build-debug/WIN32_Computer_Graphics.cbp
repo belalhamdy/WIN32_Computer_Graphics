@@ -80,9 +80,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="S:/faculty/github/WIN32_Computer_Graphics/Menu_Input/WIN32_Computer_Graphics/Matrix.h">
-			<Option target="WIN32_Computer_Graphics"/>
-		</Unit>
 		<Unit filename="S:/faculty/github/WIN32_Computer_Graphics/Menu_Input/WIN32_Computer_Graphics/main.cpp">
 			<Option target="WIN32_Computer_Graphics"/>
 		</Unit>
